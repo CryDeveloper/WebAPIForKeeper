@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="89a419af1c034b56b6bba12b4e257406" Name="Diagram1">
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Data_Authorization" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Departament" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Division" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Employees" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Groups" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visitors" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visits" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Employees_Departament" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Employees_Division" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Visitors" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.Auth_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
