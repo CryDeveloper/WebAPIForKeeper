@@ -26,14 +26,14 @@ namespace WebAPIForKeeper.Controllers
             applications.Target = structs.Target;
             //ниже получение определенной записи таблицы по входным данным
             Employees employees = BaseConnect.baseModel.Employees.FirstOrDefault(x => structs.SurnameEmp == x.Surname && structs.FirstnameEmp == x.Firstname && structs.PatronymicEmp == x.Patronymic);
-            Departament departament = BaseConnect.baseModel.Departament.FirstOrDefault(x => x.Name_Departament == structs.Name_Departament);
+            Division division = BaseConnect.baseModel.Division.FirstOrDefault(x => x.Name_Division == structs.Name_Division);
             Visitors visitors = BaseConnect.baseModel.Visitors.FirstOrDefault(x => structs.Surname == x.Surname && structs.Firstname == x.Firstname && structs.Patronymic == x.Patronymic);
             applications.ID_Visitors = visitors.ID_Visitor;
-            applications.ID_Division
+            applications.ID_Division = division.ID_Division;
             BaseConnect.baseModel.Applications.Add(applications);
             BaseConnect.baseModel.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = applications.ID_Application }, applications);
+            return CreatedAtRoute("DefaultApi", null, structs);
         }
     }
 }
