@@ -30,6 +30,8 @@ namespace WebAPIForKeeper.Controllers
             Visitors visitors = BaseConnect.baseModel.Visitors.FirstOrDefault(x => structs.Surname == x.Surname && structs.Firstname == x.Firstname && structs.Patronymic == x.Patronymic);
             applications.ID_Visitors = visitors.ID_Visitor;
             applications.ID_Division = division.ID_Division;
+            applications.ID_Employe_Division = employees.ID_Employee;
+            applications.ID_Status = 1;
             BaseConnect.baseModel.Applications.Add(applications);
             BaseConnect.baseModel.SaveChanges();
 
