@@ -12,16 +12,10 @@ namespace WebAPIForKeeper.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Visits
+    public partial class BlackList
     {
-        public int ID_Visit { get; set; }
         public int ID_Visitor { get; set; }
-        public Nullable<System.DateTime> Date_Visit { get; set; }
-        public int ID_Employee { get; set; }
-        public Nullable<int> ID_Group { get; set; }
     
-        public virtual Employees Employees { get; set; }
-        public virtual Groups Groups { get; set; }
         public virtual Visitors Visitors { get; set; }
     }
 }

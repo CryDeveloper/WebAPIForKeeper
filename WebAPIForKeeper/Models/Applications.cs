@@ -12,16 +12,22 @@ namespace WebAPIForKeeper.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Visits
+    public partial class Applications
     {
-        public int ID_Visit { get; set; }
-        public int ID_Visitor { get; set; }
-        public Nullable<System.DateTime> Date_Visit { get; set; }
-        public int ID_Employee { get; set; }
+        public int ID_Application { get; set; }
+        public int ID_Visitors { get; set; }
         public Nullable<int> ID_Group { get; set; }
+        public System.DateTime Start_Date { get; set; }
+        public Nullable<System.DateTime> End_Date { get; set; }
+        public string Target { get; set; }
+        public int ID_Division { get; set; }
+        public int ID_Employe_Division { get; set; }
+        public int ID_Status { get; set; }
     
+        public virtual Division Division { get; set; }
         public virtual Employees Employees { get; set; }
         public virtual Groups Groups { get; set; }
+        public virtual StatusApplication StatusApplication { get; set; }
         public virtual Visitors Visitors { get; set; }
     }
 }

@@ -4,7 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ATaran_KII_DemExModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ATaran_KII_DemExModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="ID_Application" />
+          </Key>
+          <Property Name="ID_Application" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Visitors" Type="int" Nullable="false" />
+          <Property Name="ID_Group" Type="int" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" />
+          <Property Name="Target" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_Division" Type="int" Nullable="false" />
+          <Property Name="ID_Employe_Division" Type="int" Nullable="false" />
+          <Property Name="ID_Status" Type="int" Nullable="false" />
+        </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "ATaran_KII_DemEx.dbo.Auth_User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Auth_User">
@@ -14,6 +28,14 @@
           </Key>
           <Property Name="ID_Auth" Type="int" Nullable="false" />
           <Property Name="ID_User" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "ATaran_KII_DemEx.dbo.BlackList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="BlackList">
+          <Key>
+            <PropertyRef Name="ID_Visitor" />
+          </Key>
+          <Property Name="ID_Visitor" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Data_Authorization">
           <Key>
@@ -56,6 +78,13 @@
           <Property Name="ID_Group" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameGroup" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
+        <EntityType Name="StatusApplication">
+          <Key>
+            <PropertyRef Name="ID_Status" />
+          </Key>
+          <Property Name="ID_Status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -86,10 +115,70 @@
           </Key>
           <Property Name="ID_Visit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Visitor" Type="int" Nullable="false" />
-          <Property Name="Date_Visit" Type="date" Nullable="false" />
+          <Property Name="Date_Visit" Type="date" />
           <Property Name="ID_Employee" Type="int" Nullable="false" />
           <Property Name="ID_Group" Type="int" />
         </EntityType>
+        <Association Name="FK_Applications_Division">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="ID_Division" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Employe_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID_Group" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_StatusApplication">
+          <End Role="StatusApplication" Type="Self.StatusApplication" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusApplication">
+              <PropertyRef Name="ID_Status" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Visitors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Auth_User_Data_Authorization">
           <End Role="Data_Authorization" Type="Self.Data_Authorization" Multiplicity="1" />
           <End Role="Auth_User" Type="Self.Auth_User" Multiplicity="*" />
@@ -111,6 +200,18 @@
             </Principal>
             <Dependent Role="Auth_User">
               <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlackList_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
+          <End Role="BlackList" Type="Self.BlackList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="ID_Visitor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -175,11 +276,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище ATaran_KII_DemExModelContainer">
+          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Data_Authorization" EntityType="Self.Data_Authorization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departament" EntityType="Self.Departament" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusApplication" EntityType="Self.StatusApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visitors" EntityType="Self.Visitors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visits" EntityType="Self.Visits" Schema="dbo" store:Type="Tables" />
@@ -189,6 +292,31 @@
     [Auth_User].[ID_User] AS [ID_User]
     FROM [dbo].[Auth_User] AS [Auth_User]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="BlackList" EntityType="Self.BlackList" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BlackList].[ID_Visitor] AS [ID_Visitor]
+    FROM [dbo].[BlackList] AS [BlackList]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Applications_Division" Association="Self.FK_Applications_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Employees" Association="Self.FK_Applications_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Groups" Association="Self.FK_Applications_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_StatusApplication" Association="Self.FK_Applications_StatusApplication">
+            <End Role="StatusApplication" EntitySet="StatusApplication" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Visitors" Association="Self.FK_Applications_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
           <AssociationSet Name="FK_Auth_User_Data_Authorization" Association="Self.FK_Auth_User_Data_Authorization">
             <End Role="Data_Authorization" EntitySet="Data_Authorization" />
             <End Role="Auth_User" EntitySet="Auth_User" />
@@ -196,6 +324,10 @@
           <AssociationSet Name="FK_Auth_User_Visitors" Association="Self.FK_Auth_User_Visitors">
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Auth_User" EntitySet="Auth_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Visitors" Association="Self.FK_BlackList_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="BlackList" EntitySet="BlackList" />
           </AssociationSet>
           <AssociationSet Name="FK_Employees_Departament" Association="Self.FK_Employees_Departament">
             <End Role="Departament" EntitySet="Departament" />
@@ -218,64 +350,154 @@
             <End Role="Visits" EntitySet="Visits" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ATaran_KII_DemExModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ATaran_KII_DemExEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applications" EntityType="ATaran_KII_DemExModel.Applications" />
+          <EntitySet Name="Data_Authorization" EntityType="ATaran_KII_DemExModel.Data_Authorization" />
+          <EntitySet Name="Departament" EntityType="ATaran_KII_DemExModel.Departament" />
+          <EntitySet Name="Division" EntityType="ATaran_KII_DemExModel.Division" />
+          <EntitySet Name="Employees" EntityType="ATaran_KII_DemExModel.Employees" />
+          <EntitySet Name="Groups" EntityType="ATaran_KII_DemExModel.Groups" />
+          <EntitySet Name="StatusApplication" EntityType="ATaran_KII_DemExModel.StatusApplication" />
+          <EntitySet Name="sysdiagrams" EntityType="ATaran_KII_DemExModel.sysdiagrams" />
+          <EntitySet Name="Visitors" EntityType="ATaran_KII_DemExModel.Visitors" />
+          <EntitySet Name="Visits" EntityType="ATaran_KII_DemExModel.Visits" />
+          <EntitySet Name="BlackList" EntityType="ATaran_KII_DemExModel.BlackList" />
+          <AssociationSet Name="FK_Applications_Division" Association="ATaran_KII_DemExModel.FK_Applications_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Employees" Association="ATaran_KII_DemExModel.FK_Applications_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Groups" Association="ATaran_KII_DemExModel.FK_Applications_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_StatusApplication" Association="ATaran_KII_DemExModel.FK_Applications_StatusApplication">
+            <End Role="StatusApplication" EntitySet="StatusApplication" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Visitors" Association="ATaran_KII_DemExModel.FK_Applications_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departament" Association="ATaran_KII_DemExModel.FK_Employees_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Division" Association="ATaran_KII_DemExModel.FK_Employees_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visits_Employees" Association="ATaran_KII_DemExModel.FK_Visits_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Visits" EntitySet="Visits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visits_Groups" Association="ATaran_KII_DemExModel.FK_Visits_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Visits" EntitySet="Visits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Visitors" Association="ATaran_KII_DemExModel.FK_BlackList_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visits_Visitors" Association="ATaran_KII_DemExModel.FK_Visits_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Visits" EntitySet="Visits" />
+          </AssociationSet>
+          <AssociationSet Name="Auth_User" Association="ATaran_KII_DemExModel.Auth_User">
+            <End Role="Data_Authorization" EntitySet="Data_Authorization" />
+            <End Role="Visitors" EntitySet="Visitors" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="ID_Application" />
+          </Key>
+          <Property Name="ID_Application" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Visitors" Type="Int32" Nullable="false" />
+          <Property Name="ID_Group" Type="Int32" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Precision="0" />
+          <Property Name="Target" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Division" Type="Int32" Nullable="false" />
+          <Property Name="ID_Employe_Division" Type="Int32" Nullable="false" />
+          <Property Name="ID_Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Division" Relationship="ATaran_KII_DemExModel.FK_Applications_Division" FromRole="Applications" ToRole="Division" />
+          <NavigationProperty Name="Employees" Relationship="ATaran_KII_DemExModel.FK_Applications_Employees" FromRole="Applications" ToRole="Employees" />
+          <NavigationProperty Name="Groups" Relationship="ATaran_KII_DemExModel.FK_Applications_Groups" FromRole="Applications" ToRole="Groups" />
+          <NavigationProperty Name="StatusApplication" Relationship="ATaran_KII_DemExModel.FK_Applications_StatusApplication" FromRole="Applications" ToRole="StatusApplication" />
+          <NavigationProperty Name="Visitors" Relationship="ATaran_KII_DemExModel.FK_Applications_Visitors" FromRole="Applications" ToRole="Visitors" />
+        </EntityType>
         <EntityType Name="Data_Authorization">
           <Key>
             <PropertyRef Name="ID_Auth" />
           </Key>
           <Property Name="ID_Auth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Visitors" Relationship="Self.Auth_User" FromRole="Data_Authorization" ToRole="Visitors" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Visitors" Relationship="ATaran_KII_DemExModel.Auth_User" FromRole="Data_Authorization" ToRole="Visitors" />
         </EntityType>
         <EntityType Name="Departament">
           <Key>
             <PropertyRef Name="ID_Departament" />
           </Key>
           <Property Name="ID_Departament" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Departament" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departament" FromRole="Departament" ToRole="Employees" />
+          <Property Name="Name_Departament" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="ATaran_KII_DemExModel.FK_Employees_Departament" FromRole="Departament" ToRole="Employees" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
             <PropertyRef Name="ID_Division" />
           </Key>
           <Property Name="ID_Division" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Division" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Division" FromRole="Division" ToRole="Employees" />
+          <Property Name="Name_Division" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applications" Relationship="ATaran_KII_DemExModel.FK_Applications_Division" FromRole="Division" ToRole="Applications" />
+          <NavigationProperty Name="Employees" Relationship="ATaran_KII_DemExModel.FK_Employees_Division" FromRole="Division" ToRole="Employees" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
             <PropertyRef Name="ID_Employee" />
           </Key>
           <Property Name="ID_Employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_Division" Type="Int32" />
           <Property Name="ID_Departament" Type="Int32" />
           <Property Name="Code_Employee" Type="Int32" />
-          <NavigationProperty Name="Departament" Relationship="Self.FK_Employees_Departament" FromRole="Employees" ToRole="Departament" />
-          <NavigationProperty Name="Division" Relationship="Self.FK_Employees_Division" FromRole="Employees" ToRole="Division" />
-          <NavigationProperty Name="Visits" Relationship="Self.FK_Visits_Employees" FromRole="Employees" ToRole="Visits" />
+          <NavigationProperty Name="Applications" Relationship="ATaran_KII_DemExModel.FK_Applications_Employees" FromRole="Employees" ToRole="Applications" />
+          <NavigationProperty Name="Departament" Relationship="ATaran_KII_DemExModel.FK_Employees_Departament" FromRole="Employees" ToRole="Departament" />
+          <NavigationProperty Name="Division" Relationship="ATaran_KII_DemExModel.FK_Employees_Division" FromRole="Employees" ToRole="Division" />
+          <NavigationProperty Name="Visits" Relationship="ATaran_KII_DemExModel.FK_Visits_Employees" FromRole="Employees" ToRole="Visits" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="ID_Group" />
           </Key>
           <Property Name="ID_Group" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameGroup" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Visits" Relationship="Self.FK_Visits_Groups" FromRole="Groups" ToRole="Visits" />
+          <Property Name="NameGroup" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applications" Relationship="ATaran_KII_DemExModel.FK_Applications_Groups" FromRole="Groups" ToRole="Applications" />
+          <NavigationProperty Name="Visits" Relationship="ATaran_KII_DemExModel.FK_Visits_Groups" FromRole="Groups" ToRole="Visits" />
+        </EntityType>
+        <EntityType Name="StatusApplication">
+          <Key>
+            <PropertyRef Name="ID_Status" />
+          </Key>
+          <Property Name="ID_Status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applications" Relationship="ATaran_KII_DemExModel.FK_Applications_StatusApplication" FromRole="StatusApplication" ToRole="Applications" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -286,16 +508,18 @@
             <PropertyRef Name="ID_Visitor" />
           </Key>
           <Property Name="ID_Visitor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Telephone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="0" />
           <Property Name="Seria" Type="Int32" />
           <Property Name="Number" Type="Int32" />
-          <NavigationProperty Name="Visits" Relationship="Self.FK_Visits_Visitors" FromRole="Visitors" ToRole="Visits" />
-          <NavigationProperty Name="Data_Authorization" Relationship="Self.Auth_User" FromRole="Visitors" ToRole="Data_Authorization" />
+          <NavigationProperty Name="Applications" Relationship="ATaran_KII_DemExModel.FK_Applications_Visitors" FromRole="Visitors" ToRole="Applications" />
+          <NavigationProperty Name="BlackList" Relationship="ATaran_KII_DemExModel.FK_BlackList_Visitors" FromRole="Visitors" ToRole="BlackList" />
+          <NavigationProperty Name="Visits" Relationship="ATaran_KII_DemExModel.FK_Visits_Visitors" FromRole="Visitors" ToRole="Visits" />
+          <NavigationProperty Name="Data_Authorization" Relationship="ATaran_KII_DemExModel.Auth_User" FromRole="Visitors" ToRole="Data_Authorization" />
         </EntityType>
         <EntityType Name="Visits">
           <Key>
@@ -303,16 +527,83 @@
           </Key>
           <Property Name="ID_Visit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Visitor" Type="Int32" Nullable="false" />
-          <Property Name="Date_Visit" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_Visit" Type="DateTime" Precision="0" />
           <Property Name="ID_Employee" Type="Int32" Nullable="false" />
           <Property Name="ID_Group" Type="Int32" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_Visits_Employees" FromRole="Visits" ToRole="Employees" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_Visits_Groups" FromRole="Visits" ToRole="Groups" />
-          <NavigationProperty Name="Visitors" Relationship="Self.FK_Visits_Visitors" FromRole="Visits" ToRole="Visitors" />
+          <NavigationProperty Name="Employees" Relationship="ATaran_KII_DemExModel.FK_Visits_Employees" FromRole="Visits" ToRole="Employees" />
+          <NavigationProperty Name="Groups" Relationship="ATaran_KII_DemExModel.FK_Visits_Groups" FromRole="Visits" ToRole="Groups" />
+          <NavigationProperty Name="Visitors" Relationship="ATaran_KII_DemExModel.FK_Visits_Visitors" FromRole="Visits" ToRole="Visitors" />
         </EntityType>
+        <EntityType Name="BlackList">
+          <Key>
+            <PropertyRef Name="ID_Visitor" />
+          </Key>
+          <Property Name="ID_Visitor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Visitors" Relationship="ATaran_KII_DemExModel.FK_BlackList_Visitors" FromRole="BlackList" ToRole="Visitors" />
+        </EntityType>
+        <Association Name="FK_Applications_Division">
+          <End Type="ATaran_KII_DemExModel.Division" Role="Division" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.Applications" Role="Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="ID_Division" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Employees">
+          <End Type="ATaran_KII_DemExModel.Employees" Role="Employees" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.Applications" Role="Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Employe_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Groups">
+          <End Type="ATaran_KII_DemExModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Applications" Role="Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID_Group" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_StatusApplication">
+          <End Type="ATaran_KII_DemExModel.StatusApplication" Role="StatusApplication" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.Applications" Role="Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusApplication">
+              <PropertyRef Name="ID_Status" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Visitors">
+          <End Type="ATaran_KII_DemExModel.Visitors" Role="Visitors" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.Applications" Role="Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Visitors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_Departament">
-          <End Role="Departament" Type="Self.Departament" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Departament" Role="Departament" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Employees" Role="Employees" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departament">
               <PropertyRef Name="ID_Departament" />
@@ -323,8 +614,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employees_Division">
-          <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Employees" Role="Employees" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Division">
               <PropertyRef Name="ID_Division" />
@@ -335,8 +626,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Visits_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Employees" Role="Employees" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.Visits" Role="Visits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="ID_Employee" />
@@ -347,8 +638,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Visits_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
-          <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Visits" Role="Visits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Groups">
               <PropertyRef Name="ID_Group" />
@@ -358,9 +649,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BlackList_Visitors">
+          <End Type="ATaran_KII_DemExModel.Visitors" Role="Visitors" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.BlackList" Role="BlackList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="ID_Visitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Visits_Visitors">
-          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
-          <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Visitors" Role="Visitors" Multiplicity="1" />
+          <End Type="ATaran_KII_DemExModel.Visits" Role="Visits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Visitors">
               <PropertyRef Name="ID_Visitor" />
@@ -371,138 +674,134 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Auth_User">
-          <End Role="Data_Authorization" Type="Self.Data_Authorization" Multiplicity="*" />
-          <End Role="Visitors" Type="Self.Visitors" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Data_Authorization" Role="Data_Authorization" Multiplicity="*" />
+          <End Type="ATaran_KII_DemExModel.Visitors" Role="Visitors" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="ATaran_KII_DemExEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Data_Authorization" EntityType="Self.Data_Authorization" />
-          <EntitySet Name="Departament" EntityType="Self.Departament" />
-          <EntitySet Name="Division" EntityType="Self.Division" />
-          <EntitySet Name="Employees" EntityType="Self.Employees" />
-          <EntitySet Name="Groups" EntityType="Self.Groups" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Visitors" EntityType="Self.Visitors" />
-          <EntitySet Name="Visits" EntityType="Self.Visits" />
-          <AssociationSet Name="FK_Employees_Departament" Association="Self.FK_Employees_Departament">
-            <End Role="Departament" EntitySet="Departament" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_Division" Association="Self.FK_Employees_Division">
-            <End Role="Division" EntitySet="Division" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Visits_Employees" Association="Self.FK_Visits_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="Visits" EntitySet="Visits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Visits_Groups" Association="Self.FK_Visits_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Visits" EntitySet="Visits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Visits_Visitors" Association="Self.FK_Visits_Visitors">
-            <End Role="Visitors" EntitySet="Visitors" />
-            <End Role="Visits" EntitySet="Visits" />
-          </AssociationSet>
-          <AssociationSet Name="Auth_User" Association="Self.Auth_User">
-            <End Role="Data_Authorization" EntitySet="Data_Authorization" />
-            <End Role="Visitors" EntitySet="Visitors" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище ATaran_KII_DemExModelContainer" CdmEntityContainer="ATaran_KII_DemExEntities">
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Applications">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+                <ScalarProperty Name="ID_Employe_Division" ColumnName="ID_Employe_Division" />
+                <ScalarProperty Name="ID_Division" ColumnName="ID_Division" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+                <ScalarProperty Name="ID_Visitors" ColumnName="ID_Visitors" />
+                <ScalarProperty Name="ID_Application" ColumnName="ID_Application" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Data_Authorization">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Data_Authorization">
               <MappingFragment StoreEntitySet="Data_Authorization">
-                <ScalarProperty Name="ID_Auth" ColumnName="ID_Auth" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID_Auth" ColumnName="ID_Auth" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departament">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Departament">
               <MappingFragment StoreEntitySet="Departament">
-                <ScalarProperty Name="ID_Departament" ColumnName="ID_Departament" />
                 <ScalarProperty Name="Name_Departament" ColumnName="Name_Departament" />
+                <ScalarProperty Name="ID_Departament" ColumnName="ID_Departament" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Division">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Division">
               <MappingFragment StoreEntitySet="Division">
-                <ScalarProperty Name="ID_Division" ColumnName="ID_Division" />
                 <ScalarProperty Name="Name_Division" ColumnName="Name_Division" />
+                <ScalarProperty Name="ID_Division" ColumnName="ID_Division" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Employees">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="ID_Division" ColumnName="ID_Division" />
-                <ScalarProperty Name="ID_Departament" ColumnName="ID_Departament" />
                 <ScalarProperty Name="Code_Employee" ColumnName="Code_Employee" />
+                <ScalarProperty Name="ID_Departament" ColumnName="ID_Departament" />
+                <ScalarProperty Name="ID_Division" ColumnName="ID_Division" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Groups">
               <MappingFragment StoreEntitySet="Groups">
-                <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
                 <ScalarProperty Name="NameGroup" ColumnName="NameGroup" />
+                <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusApplication">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.StatusApplication">
+              <MappingFragment StoreEntitySet="StatusApplication">
+                <ScalarProperty Name="Name_Status" ColumnName="Name_Status" />
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Visitors">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Visitors">
               <MappingFragment StoreEntitySet="Visitors">
-                <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
-                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Seria" ColumnName="Seria" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Seria" ColumnName="Seria" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Visits">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Visits">
               <MappingFragment StoreEntitySet="Visits">
-                <ScalarProperty Name="ID_Visit" ColumnName="ID_Visit" />
-                <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
-                <ScalarProperty Name="Date_Visit" ColumnName="Date_Visit" />
-                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
                 <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
+                <ScalarProperty Name="Date_Visit" ColumnName="Date_Visit" />
+                <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
+                <ScalarProperty Name="ID_Visit" ColumnName="ID_Visit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlackList">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.BlackList">
+              <MappingFragment StoreEntitySet="BlackList">
+                <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="Auth_User" TypeName="ATaran_KII_DemExModel.Auth_User" StoreEntitySet="Auth_User">
-            <EndProperty Name="Data_Authorization">
-              <ScalarProperty Name="ID_Auth" ColumnName="ID_Auth" />
-            </EndProperty>
             <EndProperty Name="Visitors">
               <ScalarProperty Name="ID_Visitor" ColumnName="ID_User" />
+            </EndProperty>
+            <EndProperty Name="Data_Authorization">
+              <ScalarProperty Name="ID_Auth" ColumnName="ID_Auth" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

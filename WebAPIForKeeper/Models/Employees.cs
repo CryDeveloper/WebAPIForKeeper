@@ -17,6 +17,7 @@ namespace WebAPIForKeeper.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employees()
         {
+            this.Applications = new HashSet<Applications>();
             this.Visits = new HashSet<Visits>();
         }
     
@@ -28,6 +29,8 @@ namespace WebAPIForKeeper.Models
         public Nullable<int> ID_Departament { get; set; }
         public Nullable<int> Code_Employee { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Applications> Applications { get; set; }
         public virtual Departament Departament { get; set; }
         public virtual Division Division { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
