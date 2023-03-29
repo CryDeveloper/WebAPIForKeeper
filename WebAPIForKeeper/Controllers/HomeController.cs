@@ -14,5 +14,9 @@ namespace WebAPIForKeeper.Controllers
 
             return View();
         }
+        public string Buy()
+        {
+            return "Спасибо за покупку!";
+        }
     }
 }

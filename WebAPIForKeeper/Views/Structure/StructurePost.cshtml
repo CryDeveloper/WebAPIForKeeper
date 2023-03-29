@@ -1,0 +1,117 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StructurePost</title>
+</head>
+<body>
+    <form method="post" action="StructurePostFunction">
+        <div>
+            <div class="one">
+                <div class="information">
+                    <h1>
+                        Информация для отпуска
+                    </h1>
+                    <div>
+                        <p>Срок действия заяки:</p>
+                    </div>
+
+                    <div class="srok">
+                        <div class="startDate">
+                            <p>C*</p>
+                            <input type="date" name="Start_Date" атрибуты>
+                        </div>
+                        <div class="endDate">
+                            <p>По</p>
+                            <input type="date" name="End_Date" атрибуты>
+                        </div>
+                    </div>
+                    <div class="endDate">
+                        <p>Цель посещения</p>
+                        <input type="text" name="Target" атрибуты>
+                    </div>
+
+                </div>
+                <div class="Side">
+                    <h1>Принимающая сторона</h1>
+                    <div class="side">
+                        <div class="podrazd">
+                            <p>Подразделение*</p>
+                            @Html.DropDownList("id_division", ViewBag.Division as SelectList)
+                            @*<select name="AllDivision" id="selectID">
+            <option value=”GR”>Green</option>
+            <option value=”YE”>Yellow</option>
+            <option value=”BL”>Black</option>
+        </select>*@
+                        </div>
+                        <p>Фамилия:</p>
+                        <input name="SurnameEmp" type="text">
+                        <p>Имя:</p>
+                        <input name="FirstnameEmp" type="text">
+                        <p>Отчество:</p>
+                        <input name="PatronymicEmp" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="informationAboutPerson">
+            <h1>Информация о посетителе</h1>
+            <div class="enterData">
+                <div class="firstColumn">
+                    <div class="family">
+                        <label for="peas">Фамилия:</label>
+                        <input name="Firstname" type="text">
+                    </div>
+                    <div class="name">
+                        <label for="peas">Имя:</label>
+                        <input  name="Surname" type="text">
+                    </div>
+                    <div class="family">
+                        <label for="peas">Отчество:</label>
+                        <input  name="Patronymic" type="text">
+                    </div>
+                    <div class="family">
+                        <label for="peas">Телефон:</label>
+                        <input  name="Telephone" type="text">
+                    </div>
+                    <div class="family">
+                        <label for="peas">E-mail:</label>
+                        <input  name="Email" type="email">
+                    </div>
+                </div>
+                <div class="secondColumn">
+                    <div class="family">
+                        <label for="peas">Организация:</label>
+                        <input name="Organization" type="text">
+                    </div>
+                    <div class="name">
+                        <label for="peas">Примечание:</label>
+                        <input name="Value" type="text">
+                    </div>
+                    <div class="family">
+                        <label for="peas">Дата рождения:</label>
+                        <input name="Birthday" type="date">
+                    </div>
+                    <div class="family">
+                        <label for="peas">Серия:</label>
+                        <input name="Seria" type="text">
+                    </div>
+                    <div class="family">
+                        <label for="peas">Номер:</label>
+                        <input name="Number" type="email">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Отправить"></p>
+        </div>
+    </form>
+</body>
+</html>

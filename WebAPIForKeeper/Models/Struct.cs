@@ -47,5 +47,6 @@ namespace WebAPIForKeeper.Models
         public Nullable<System.DateTime> Birthday { get; set; }
         public Nullable<int> Seria { get; set; }
         public Nullable<int> Number { get; set; }
+        public Nullable<int> id_division { get; set; }
     }
 }
