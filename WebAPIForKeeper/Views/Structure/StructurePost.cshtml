@@ -15,41 +15,79 @@
             text-align:center;
 
         }*/
-
+        p{
+            top: 0;
+            bottom:0;
+        }
+        div{
+            top:0;
+            margin-bottom:10px;
+        }
         .main, .enterData {
             display: flex;
             flex-direction: row;
+            gap:15px;
             width: 100%;
         }
-        .one, .Side, .firstColumn, .secondColumn {
+        
+        .after-head {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .inside, .column {
             width: 100%;
-            padding-inline:20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .inside {
+            background-color: lightgray;
+            border-radius: 10px;
+        }
+        .column {
+            padding: 10px;
+        }
+        .block-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
         }
         .head_text {
             border-radius: 10px;
             background-color: orange;
             text-align: center;
             height: min-content;
-            
+        }
+        
+        label.block-row {
+            width: max-content;
         }
         input {
+            /*width:700px;*//*если хочется на всю*/
             height: min-content;
-            width: max-content;
         }
-        input.enterData{
-            width:50%;
+        input.block-row, select {
+            width: 100%;
+         }
+        .srok{
+            margin-left:auto;
+            margin-right:auto;
         }
-        label.enterData{
-            width: max-content;
+        #but1 {
+            margin-left: auto;
+            margin-right: 0;
         }
     </style>
 </head>
 <body>
     <form method="post" action="StructurePostFunction">
-        <div class="main" style="width:stretch">
-            <div class="one" >
+        <div class="main">
+            <div class="inside" >
                 <div class="head_text"><h1>Информация для пропуска</h1></div>
-                <div style="background-color:lightgray;">
+                <div class="after-head">
                     <p style="text-align: center">Срок действия заявки:</p>
                     <div class="srok">
                         <label for="Start_Date">с*: </label> <input type="date" id="Start_Date" атрибуты>
@@ -59,74 +97,69 @@
                     <input type="text" name="Target" атрибуты>
                 </div>
             </div>
-            <div class="Side" style="width:stretch">
+            <div class="inside" style="width:stretch">
                 <div class="head_text"><h1>Принимающая сторона</h1></div>
-                <div class="side">
+                <div class="after-head">
                     <div class="podrazd">
                         <p>Подразделение*</p>
                         @Html.DropDownList("id_division", ViewBag.Division as SelectList)
-                        @*<select name="AllDivision" id="selectID">
-                        <option value=”GR”>Green</option>
-                        <option value=”YE”>Yellow</option>
-                        <option value=”BL”>Black</option>
-                    </select>*@
                     </div>
                     <p>ФИО:</p>
                     <input name="FullName" type="text">
                 </div>
             </div>
         </div>
-        <div class="informationAboutPerson">
+        <div class="inside">
             <div class="head_text"><h1>Информация о посетителе</h1></div>
             <div class="enterData">
-                <div class="firstColumn">
-                    <div class="family">
+                <div class="column">
+                    <div class="block-row">
                         <label for="peas">Фамилия:</label>
                         <input name="Firstname" type="text">
                     </div>
-                    <div class="name">
+                    <div class="block-row">
                         <label for="peas">Имя:</label>
                         <input  name="Surname" type="text">
                     </div>
-                    <div class="family">
+                    <div class="block-row">
                         <label for="peas">Отчество:</label>
                         <input  name="Patronymic" type="text">
                     </div>
-                    <div class="family">
+                    <div class="block-row">
                         <label for="peas">Телефон:</label>
                         <input  name="Telephone" type="text">
                     </div>
-                    <div class="family">
+                    <div class="block-row">
                         <label for="peas">E-mail:</label>
                         <input  name="Email" type="email">
                     </div>
                 </div>
-                <div class="secondColumn">
-                    <div class="family">
+                <div class="column">
+                    <div class="block-row">
                         <label for="peas">Организация:</label>
                         <input name="Organization" type="text">
                     </div>
-                    <div class="name">
+                    <div class="block-row">
                         <label for="peas">Примечание:</label>
                         <input name="Value" type="text">
                     </div>
-                    <div class="family">
+                    <div class="block-row">
                         <label for="peas">Дата рождения:</label>
                         <input name="Birthday" type="date">
                     </div>
-                    <div class="family">
+                    <div class="block-row">
                         <label for="peas">Серия:</label>
                         <input name="Seria" type="text">
                     </div>
-                    <div class="family">
+                    <div class="block-row">
                         <label for="peas">Номер:</label>
                         <input name="Number" type="text">
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            <input type="submit" value="Отправить"></p>
+        <div style="display:flex;">
+            <input type="submit" value="Отправить" id="but1"/>
         </div>
     </form>
 </body>
