@@ -9,59 +9,75 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>StructurePost</title>
+    <style>
+/*        h1{
+            background-color:darkorange;
+            text-align:center;
+
+        }*/
+
+        .main, .enterData {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+        .one, .Side, .firstColumn, .secondColumn {
+            width: 100%;
+            padding-inline:20px;
+        }
+        .head_text {
+            border-radius: 10px;
+            background-color: orange;
+            text-align: center;
+            height: min-content;
+            
+        }
+        input {
+            height: min-content;
+            width: max-content;
+        }
+        input.enterData{
+            width:50%;
+        }
+        label.enterData{
+            width: max-content;
+        }
+    </style>
 </head>
 <body>
     <form method="post" action="StructurePostFunction">
-        <div>
-            <div class="one">
-                <div class="information">
-                    <h1>
-                        Информация для отпуска
-                    </h1>
-                    <div>
-                        <p>Срок действия заяки:</p>
-                    </div>
-
+        <div class="main" style="width:stretch">
+            <div class="one" >
+                <div class="head_text"><h1>Информация для пропуска</h1></div>
+                <div style="background-color:lightgray;">
+                    <p style="text-align: center">Срок действия заявки:</p>
                     <div class="srok">
-                        <div class="startDate">
-                            <p>C*</p>
-                            <input type="date" name="Start_Date" атрибуты>
-                        </div>
-                        <div class="endDate">
-                            <p>По</p>
-                            <input type="date" name="End_Date" атрибуты>
-                        </div>
+                        <label for="Start_Date">с*: </label> <input type="date" id="Start_Date" атрибуты>
+                        <label for="End_Date">по: </label> <input type="date" id="End_Date" атрибуты>
                     </div>
-                    <div class="endDate">
-                        <p>Цель посещения</p>
-                        <input type="text" name="Target" атрибуты>
-                    </div>
-
+                    <p style="text-align: center">Цель посещения</p>
+                    <input type="text" name="Target" атрибуты>
                 </div>
-                <div class="Side">
-                    <h1>Принимающая сторона</h1>
-                    <div class="side">
-                        <div class="podrazd">
-                            <p>Подразделение*</p>
-                            @Html.DropDownList("id_division", ViewBag.Division as SelectList)
-                            @*<select name="AllDivision" id="selectID">
-            <option value=”GR”>Green</option>
-            <option value=”YE”>Yellow</option>
-            <option value=”BL”>Black</option>
-        </select>*@
-                        </div>
-                        <p>Фамилия:</p>
-                        <input name="SurnameEmp" type="text">
-                        <p>Имя:</p>
-                        <input name="FirstnameEmp" type="text">
-                        <p>Отчество:</p>
-                        <input name="PatronymicEmp" type="text">
+            </div>
+            <div class="Side" style="width:stretch">
+                <div class="head_text"><h1>Принимающая сторона</h1></div>
+                <div class="side">
+                    <div class="podrazd">
+                        <p>Подразделение*</p>
+                        @Html.DropDownList("id_division", ViewBag.Division as SelectList)
+                        @*<select name="AllDivision" id="selectID">
+                        <option value=”GR”>Green</option>
+                        <option value=”YE”>Yellow</option>
+                        <option value=”BL”>Black</option>
+                    </select>*@
                     </div>
+                    <p>ФИО:</p>
+                    <input name="FullName" type="text">
                 </div>
             </div>
         </div>
         <div class="informationAboutPerson">
-            <h1>Информация о посетителе</h1>
+            <div class="head_text"><h1>Информация о посетителе</h1></div>
             <div class="enterData">
                 <div class="firstColumn">
                     <div class="family">
