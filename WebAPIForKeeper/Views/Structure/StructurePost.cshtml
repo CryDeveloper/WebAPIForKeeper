@@ -85,7 +85,7 @@
 <body>
     <form method="post" action="StructurePostFunction">
         <div class="main">
-            <div class="inside" >
+            <div class="inside">
                 <div class="head_text"><h1>Информация для пропуска</h1></div>
                 <div class="after-head">
                     <p style="text-align: center">Срок действия заявки:</p>
@@ -119,19 +119,19 @@
                     </div>
                     <div class="block-row">
                         <label for="peas">Имя:</label>
-                        <input  name="Surname" type="text">
+                        <input name="Surname" type="text">
                     </div>
                     <div class="block-row">
                         <label for="peas">Отчество:</label>
-                        <input  name="Patronymic" type="text">
+                        <input name="Patronymic" type="text">
                     </div>
                     <div class="block-row">
                         <label for="peas">Телефон:</label>
-                        <input  name="Telephone" type="text">
+                        <input name="Telephone" type="text">
                     </div>
                     <div class="block-row">
                         <label for="peas">E-mail:</label>
-                        <input  name="Email" type="email">
+                        <input name="Email" type="email">
                     </div>
                 </div>
                 <div class="column">
@@ -159,8 +159,13 @@
             </div>
         </div>
         <div style="display:flex;">
-            <input type="submit" value="Отправить" id="but1"/>
+            <input type="submit" value="Отправить" id="but1" />
         </div>
+    </form>
+    <form method="post" action="newPost">
+        <input type="submit" value="Отправить" id="but1" />
+        <input type="file" value="Прикрепить файл"/>
+        <a href="~/Default/Index" type="text/html">Форма записи на посещение мероприятия</a>
     </form>
 </body>
 </html>

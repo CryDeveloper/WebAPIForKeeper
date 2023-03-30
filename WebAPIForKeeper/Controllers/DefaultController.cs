@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace WebAPIForKeeper.Controllers
 {
-    public class HomeController : Controller
+    public class DefaultController : Controller
     {
+        // GET: Default
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
             return View();
         }
     }

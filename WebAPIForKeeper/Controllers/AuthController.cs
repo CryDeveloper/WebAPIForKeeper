@@ -6,13 +6,15 @@ using System.Web.Mvc;
 
 namespace WebAPIForKeeper.Controllers
 {
-    public class HomeController : Controller
+    public class AuthController : Controller
     {
+        // GET: Auth
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
 
             return View();
         }
+
+        public ActionResult LogIn(Data_Autho)
     }
 }

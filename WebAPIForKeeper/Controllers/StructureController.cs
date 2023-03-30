@@ -22,7 +22,7 @@ namespace WebAPIForKeeper.Controllers
             return View();
         }
         [System.Web.Http.HttpPost]
-        public string StructurePostFunction(Struct structs)
+        public string StructurePostFunction(Struct structs) /*structs - данные приходящие с формочки. стоит учитывать id*/
         {
             Applications applications = new Applications(); //создание заявки
             applications.Start_Date = structs.Start_Date; //добавление полей заявки
@@ -39,6 +39,11 @@ namespace WebAPIForKeeper.Controllers
             BaseConnect.baseModel.Applications.Add(applications);
             BaseConnect.baseModel.SaveChanges();
             return "Данные успешно добавлены";
+        }
+        [System.Web.Http.HttpPost]
+        public string newPost()
+        {
+            return "Я другой Post";
         }
     }
 }
