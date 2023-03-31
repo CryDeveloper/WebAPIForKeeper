@@ -14,7 +14,5 @@ namespace WebAPIForKeeper.Controllers
 
             return View();
         }
-
-        public ActionResult LogIn(Data_Autho)
     }
 }
