@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -34,9 +35,12 @@ namespace WebAPIForKeeper.Models
         public Nullable<System.DateTime> End_Date { get; set; }
         public string Target { get; set; }
         public string Name_Division { get; set; }
+        public int division_employees { get; set; }
         public string SurnameEmp { get; set; }
         public string FirstnameEmp { get; set; }
         public string PatronymicEmp { get; set; }
+        [Required(ErrorMessage = "Введите имя")]
+        [StringLength(10, ErrorMessage = "Введите имя")]
         public string Firstname { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

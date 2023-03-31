@@ -168,6 +168,7 @@
     <Compile Include="BaseConnect.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ChoiceTypeVisitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StructureCController.cs" />
     <Compile Include="Controllers\StructureController.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="Models\BlackList.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAuth.cs" />
+    <Compile Include="Models\DataAuthorization.cs" />
     <Compile Include="Models\Data_Authorization.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
@@ -303,6 +304,7 @@
     <Content Include="Views\Structure\LocalVisit.cshtml" />
     <Content Include="Views\Shared\_DivisionEmployeesSelectPartial.cshtml" />
     <Content Include="Views\Auth\Index.cshtml" />
+    <Content Include="Views\ChoiceTypeVisit\TypeVisit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

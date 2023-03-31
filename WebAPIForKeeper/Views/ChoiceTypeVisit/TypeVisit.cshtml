@@ -1,0 +1,72 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Выбор посещения</title>
+    <style>
+        .main {
+            display: grid;
+            flex-direction: column;
+        }
+
+        main {
+            height: 200px;
+            width: 420px;
+            justify-self: center;
+            align-self: center;
+            display: flex;
+            gap: 10px;
+            margin-top: 15%;
+        }
+
+        .pict {
+            height: 200px;
+            width: 200px;
+            background-color: lightgrey;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        img {
+            height: 100px;
+            width: 100px;
+            margin: auto;
+            margin-bottom: 5px;
+            border-color: grey;
+        }
+
+        span {
+            margin: auto;
+            margin-top: 0;
+            text-align: center;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <header>
+            <h3>Хранитель ПРО</h3>
+        </header>
+        <main>
+            <a href="~/Structure/StructurePost">
+                <div class="pict">
+                    <img src="~/SrcUser/User.jpg" />
+                    <span>Личное посещение</span>
+                </div>
+            </a>
+            <div class="pict">
+                <img src="~/SrcUser/User.jpg" />
+                <span>Групповое посещение</span>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -45,13 +45,15 @@
         </header>
         <main>
             <h3>Авторизация</h3>
-            <div style="display: flex; justify-content: space-between;">
-                <label for="Login">Логин:</label><input type="text" id="Login" />
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-                <label for="Password">Пароль:</label><input type="password" id="Password" />
-            </div>
-            <input type="submit" value="Войти" style="align-self:center"/>
+            <form method="post" action="Authorization">
+                <div style="display: flex; justify-content: space-between;">
+                    <label for="Login">Логин:</label><input type="text" name="Login" />
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <label for="Password">Пароль:</label><input type="password" name="Password" />
+                </div>
+                <input type="submit" value="Войти" style="align-self:center" id="but1"/>
+            </form>
         </main>
     </div>
 </body>

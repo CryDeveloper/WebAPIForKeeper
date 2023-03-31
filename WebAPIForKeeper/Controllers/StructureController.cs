@@ -43,7 +43,6 @@ namespace WebAPIForKeeper.Controllers
             applications.End_Date = structs.End_Date;
             applications.Target = structs.Target;
             //ниже получение определенной записи таблицы по входным данным
-
             Employees employees = BaseConnect.baseModel.Employees.FirstOrDefault(x => structs.SurnameEmp == x.Surname && structs.FirstnameEmp == x.Firstname && structs.PatronymicEmp == x.Patronymic);
             Visitors visitors = BaseConnect.baseModel.Visitors.FirstOrDefault(x => structs.Surname == x.Surname && structs.Firstname == x.Firstname && structs.Patronymic == x.Patronymic);
             applications.ID_Visitors = visitors.ID_Visitor;

@@ -19,9 +19,17 @@ namespace WebAPIForKeeper.Models
             Seria = visitors.Seria;
             Number = visitors.Number;
         }
-
+        /// <summary>
+        /// ID посетителя
+        /// </summary>
         public int ID_Visitor { get; set; }
+        /// <summary>
+        /// Имя посетителя
+        /// </summary>
         public string Firstname { get; set; }
+        /// <summary>
+        /// Фамилия посетителя
+        /// </summary>
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         public string Telephone { get; set; }

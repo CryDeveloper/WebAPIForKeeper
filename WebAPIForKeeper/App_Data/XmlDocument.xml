@@ -486,5 +486,32 @@
             Создание связи с БД
             </summary>
         </member>
+        <member name="F:WebAPIForKeeper.Controllers.AuthController.AuthUser">
+            <summary>
+            Объект для хранения данных авторизованного пользователя
+            </summary>
+        </member>
+        <member name="M:WebAPIForKeeper.Controllers.AuthController.Authorization(WebAPIForKeeper.Models.DataAuthorization)">
+            <summary>
+            Получение данных для авторизации введенных пользователем
+            </summary>
+            <param name="dataAuthorization">Данные, введенные пользователем</param>
+            <returns>При вверных данных осуществляет авторизацию, иначе - ошибка</returns>
+        </member>
+        <member name="P:WebAPIForKeeper.Models.Visitior.ID_Visitor">
+            <summary>
+            ID посетителя
+            </summary>
+        </member>
+        <member name="P:WebAPIForKeeper.Models.Visitior.Firstname">
+            <summary>
+            Имя посетителя
+            </summary>
+        </member>
+        <member name="P:WebAPIForKeeper.Models.Visitior.Surname">
+            <summary>
+            Фамилия посетителя
+            </summary>
+        </member>
     </members>
 </doc>

@@ -1,4 +1,4 @@
-﻿
+﻿@model WebAPIForKeeper.Models.Struct
 @{
     Layout = null;
 }
@@ -107,11 +107,11 @@
                 <div class="after-head">
                     <p style="text-align: center">Срок действия заявки:</p>
                     <div class="srok">
-                        <label for="Start_Date">с*: </label> <input type="date" id="Start_Date" атрибуты>
-                        <label for="End_Date">по: </label> <input type="date" id="End_Date" атрибуты>
+                        <label for="Start_Date">с*: </label> <input type="date" name="Start_Date" required>
+                        <label for="End_Date">по: </label> <input type="date" name="End_Date">
                     </div>
                     <p style="text-align: center">Цель посещения</p>
-                    <input type="text" name="Target" атрибуты>
+                    <input type="text" name="Target">
                 </div>
             </div>
             <div class="inside" style="width:stretch">
@@ -122,8 +122,7 @@
                         @Html.DropDownList("id_division", ViewBag.Division as SelectList)
                     </div>
                     <p>ФИО:</p>
-                    <select id="division_employees">
-                    </select>
+                    <select id="division_employees" name="division_employees"></select>
                 </div>
             </div>
         </div>
@@ -133,15 +132,15 @@
                 <div class="column">
                     <div class="block-row">
                         <label for="peas">Фамилия:</label>
-                        <input name="Firstname" type="text">
+                        <input name="Firstname" type="text" required>
                     </div>
                     <div class="block-row">
                         <label for="peas">Имя:</label>
-                        <input name="Surname" type="text">
+                        <input name="Surname" type="text" required>
                     </div>
                     <div class="block-row">
                         <label for="peas">Отчество:</label>
-                        <input name="Patronymic" type="text">
+                        <input name="Patronymic" type="text" required>
                     </div>
                     <div class="block-row">
                         <label for="peas">Телефон:</label>
@@ -179,11 +178,6 @@
         <div style="display:flex;">
             <input type="submit" value="Отправить" id="but1" />
         </div>
-    </form>
-    <form method="post" action="newPost">
-        <input type="submit" value="Отправить" id="but1" />
-        <input type="file" value="Прикрепить файл"/>
-        <a href="~/Default/Index" type="text/html">Форма записи на посещение мероприятия</a>
     </form>
 </body>
 </html>
