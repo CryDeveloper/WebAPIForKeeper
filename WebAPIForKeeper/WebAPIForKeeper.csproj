@@ -299,6 +299,7 @@
     <Content Include="Views\Structure\StructurePost.cshtml" />
     <Content Include="Views\Structure\LocalVisit.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Shared\_DivisionEmployeesSelectPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

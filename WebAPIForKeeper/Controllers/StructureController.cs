@@ -21,6 +21,20 @@ namespace WebAPIForKeeper.Controllers
             ViewBag.Division = new SelectList( BaseConnect.baseModel.Division.ToList(),  "ID_Division", "Name_Division");
             return View();
         }
+
+        [System.Web.Http.HttpGet]
+        public ActionResult GetDivisionEmployeesSelect(int id)
+        {
+            var employees = BaseConnect.baseModel.Employees.Where(e => e.ID_Division == id);
+
+            if (employees == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("_DivisionEmployeesSelectPartial", employees);
+        }
+
         [System.Web.Http.HttpPost]
         public string StructurePostFunction(Struct structs) /*structs - данные приходящие с формочки. стоит учитывать id*/
         {

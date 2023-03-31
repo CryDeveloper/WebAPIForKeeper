@@ -81,6 +81,23 @@
             margin-right: 0;
         }
     </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const callback = (function () {
+                $.get(
+                    "GetDivisionEmployeesSelect/" + $("#id_division").val(),
+                    success
+                );
+                function success(data) {
+                    $("#division_employees").html(data);
+                }
+            });
+
+            callback();
+            $("#id_division").change(callback);
+        })
+    </script>
 </head>
 <body>
     <form method="post" action="StructurePostFunction">
@@ -105,7 +122,8 @@
                         @Html.DropDownList("id_division", ViewBag.Division as SelectList)
                     </div>
                     <p>ФИО:</p>
-                    <input name="FullName" type="text">
+                    <select id="division_employees">
+                    </select>
                 </div>
             </div>
         </div>
