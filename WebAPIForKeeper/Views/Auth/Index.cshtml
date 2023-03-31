@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Авторизация</title>
+    <style>
+        .main {
+            display: grid;
+            flex-direction: column;
+        }
+        h3{
+            text-align:center;
+        }
+        main {
+            height: 100px;
+            width: 300px;
+            justify-self: center;
+            align-self: center;
+            display: flex;
+            flex-direction:column;
+            gap: 10px;
+            margin-top: 15%;
+            justify-content:space-between;
+        }
+        input {
+            width: 70%;
+            justify-self: right;
+        }
+        label{
+            width:max-content;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main"> 
+        <header>
+            <h2>Хранитель ПРО</h2>
+        </header>
+        <main>
+            <h3>Авторизация</h3>
+            <div style="display: flex; justify-content: space-between;">
+                <label for="Login">Логин:</label><input type="text" id="Login" />
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <label for="Password">Пароль:</label><input type="password" id="Password" />
+            </div>
+            <input type="submit" value="Войти" style="align-self:center"/>
+        </main>
+    </div>
+</body>
+</html>

@@ -11,10 +11,9 @@ namespace WebAPIForKeeper.Controllers
         // GET: Auth
         public ActionResult Index()
         {
-
             return View();
         }
 
-        //public ActionResult LogIn(Data_Autho)
+        //public ActionResult LogIn()
     }
 }

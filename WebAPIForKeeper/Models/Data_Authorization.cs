@@ -14,17 +14,11 @@ namespace WebAPIForKeeper.Models
     
     public partial class Data_Authorization
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Data_Authorization()
-        {
-            this.Visitors = new HashSet<Visitors>();
-        }
-    
         public int ID_Auth { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public Nullable<int> ID_User { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Visitors> Visitors { get; set; }
+        public virtual Visitors Visitors { get; set; }
     }
 }

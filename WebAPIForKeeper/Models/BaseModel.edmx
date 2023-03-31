@@ -20,16 +20,6 @@
           <Property Name="ID_Status" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "ATaran_KII_DemEx.dbo.Auth_User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="Auth_User">
-          <Key>
-            <PropertyRef Name="ID_Auth" />
-            <PropertyRef Name="ID_User" />
-          </Key>
-          <Property Name="ID_Auth" Type="int" Nullable="false" />
-          <Property Name="ID_User" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "ATaran_KII_DemEx.dbo.BlackList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="BlackList">
           <Key>
@@ -44,6 +34,7 @@
           <Property Name="ID_Auth" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="ID_User" Type="int" />
         </EntityType>
         <EntityType Name="Departament">
           <Key>
@@ -179,30 +170,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Auth_User_Data_Authorization">
-          <End Role="Data_Authorization" Type="Self.Data_Authorization" Multiplicity="1" />
-          <End Role="Auth_User" Type="Self.Auth_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Data_Authorization">
-              <PropertyRef Name="ID_Auth" />
-            </Principal>
-            <Dependent Role="Auth_User">
-              <PropertyRef Name="ID_Auth" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Auth_User_Visitors">
-          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
-          <End Role="Auth_User" Type="Self.Auth_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Visitors">
-              <PropertyRef Name="ID_Visitor" />
-            </Principal>
-            <Dependent Role="Auth_User">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BlackList_Visitors">
           <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
           <End Role="BlackList" Type="Self.BlackList" Multiplicity="0..1" />
@@ -212,6 +179,18 @@
             </Principal>
             <Dependent Role="BlackList">
               <PropertyRef Name="ID_Visitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Data_Authorization_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="0..1" />
+          <End Role="Data_Authorization" Type="Self.Data_Authorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="Data_Authorization">
+              <PropertyRef Name="ID_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -286,12 +265,6 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visitors" EntityType="Self.Visitors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visits" EntityType="Self.Visits" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Auth_User" EntityType="Self.Auth_User" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Auth_User].[ID_Auth] AS [ID_Auth], 
-    [Auth_User].[ID_User] AS [ID_User]
-    FROM [dbo].[Auth_User] AS [Auth_User]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="BlackList" EntityType="Self.BlackList" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [BlackList].[ID_Visitor] AS [ID_Visitor]
@@ -317,17 +290,13 @@
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Applications" EntitySet="Applications" />
           </AssociationSet>
-          <AssociationSet Name="FK_Auth_User_Data_Authorization" Association="Self.FK_Auth_User_Data_Authorization">
-            <End Role="Data_Authorization" EntitySet="Data_Authorization" />
-            <End Role="Auth_User" EntitySet="Auth_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Auth_User_Visitors" Association="Self.FK_Auth_User_Visitors">
-            <End Role="Visitors" EntitySet="Visitors" />
-            <End Role="Auth_User" EntitySet="Auth_User" />
-          </AssociationSet>
           <AssociationSet Name="FK_BlackList_Visitors" Association="Self.FK_BlackList_Visitors">
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Data_Authorization_Visitors" Association="Self.FK_Data_Authorization_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Data_Authorization" EntitySet="Data_Authorization" />
           </AssociationSet>
           <AssociationSet Name="FK_Employees_Departament" Association="Self.FK_Employees_Departament">
             <End Role="Departament" EntitySet="Departament" />
@@ -386,6 +355,10 @@
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Applications" EntitySet="Applications" />
           </AssociationSet>
+          <AssociationSet Name="FK_Data_Authorization_Visitors" Association="ATaran_KII_DemExModel.FK_Data_Authorization_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Data_Authorization" EntitySet="Data_Authorization" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_Departament" Association="ATaran_KII_DemExModel.FK_Employees_Departament">
             <End Role="Departament" EntitySet="Departament" />
             <End Role="Employees" EntitySet="Employees" />
@@ -409,10 +382,6 @@
           <AssociationSet Name="FK_Visits_Visitors" Association="ATaran_KII_DemExModel.FK_Visits_Visitors">
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Visits" EntitySet="Visits" />
-          </AssociationSet>
-          <AssociationSet Name="Auth_User" Association="ATaran_KII_DemExModel.Auth_User">
-            <End Role="Data_Authorization" EntitySet="Data_Authorization" />
-            <End Role="Visitors" EntitySet="Visitors" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Applications">
@@ -441,7 +410,8 @@
           <Property Name="ID_Auth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Visitors" Relationship="ATaran_KII_DemExModel.Auth_User" FromRole="Data_Authorization" ToRole="Visitors" />
+          <Property Name="ID_User" Type="Int32" />
+          <NavigationProperty Name="Visitors" Relationship="ATaran_KII_DemExModel.FK_Data_Authorization_Visitors" FromRole="Data_Authorization" ToRole="Visitors" />
         </EntityType>
         <EntityType Name="Departament">
           <Key>
@@ -517,9 +487,9 @@
           <Property Name="Seria" Type="Int32" />
           <Property Name="Number" Type="Int32" />
           <NavigationProperty Name="Applications" Relationship="ATaran_KII_DemExModel.FK_Applications_Visitors" FromRole="Visitors" ToRole="Applications" />
+          <NavigationProperty Name="Data_Authorization" Relationship="ATaran_KII_DemExModel.FK_Data_Authorization_Visitors" FromRole="Visitors" ToRole="Data_Authorization" />
           <NavigationProperty Name="BlackList" Relationship="ATaran_KII_DemExModel.FK_BlackList_Visitors" FromRole="Visitors" ToRole="BlackList" />
           <NavigationProperty Name="Visits" Relationship="ATaran_KII_DemExModel.FK_Visits_Visitors" FromRole="Visitors" ToRole="Visits" />
-          <NavigationProperty Name="Data_Authorization" Relationship="ATaran_KII_DemExModel.Auth_User" FromRole="Visitors" ToRole="Data_Authorization" />
         </EntityType>
         <EntityType Name="Visits">
           <Key>
@@ -601,6 +571,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Data_Authorization_Visitors">
+          <End Type="ATaran_KII_DemExModel.Visitors" Role="Visitors" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Data_Authorization" Role="Data_Authorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="Data_Authorization">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_Departament">
           <End Type="ATaran_KII_DemExModel.Departament" Role="Departament" Multiplicity="0..1" />
           <End Type="ATaran_KII_DemExModel.Employees" Role="Employees" Multiplicity="*" />
@@ -673,11 +655,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Auth_User">
-          <End Type="ATaran_KII_DemExModel.Data_Authorization" Role="Data_Authorization" Multiplicity="*" />
-          <End Type="ATaran_KII_DemExModel.Visitors" Role="Visitors" Multiplicity="*" />
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -701,6 +679,7 @@
           <EntitySetMapping Name="Data_Authorization">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Data_Authorization">
               <MappingFragment StoreEntitySet="Data_Authorization">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="ID_Auth" ColumnName="ID_Auth" />
@@ -796,14 +775,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Auth_User" TypeName="ATaran_KII_DemExModel.Auth_User" StoreEntitySet="Auth_User">
-            <EndProperty Name="Visitors">
-              <ScalarProperty Name="ID_Visitor" ColumnName="ID_User" />
-            </EndProperty>
-            <EndProperty Name="Data_Authorization">
-              <ScalarProperty Name="ID_Auth" ColumnName="ID_Auth" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

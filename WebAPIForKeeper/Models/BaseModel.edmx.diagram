@@ -4,30 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="89a419af1c034b56b6bba12b4e257406" Name="Diagram1">
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Applications" Width="1.5" PointX="6" PointY="2.875" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Data_Authorization" Width="1.5" PointX="1.5" PointY="15.875" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Departament" Width="1.5" PointX="1.5" PointY="9.375" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Division" Width="1.5" PointX="3.75" PointY="12.5" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Employees" Width="1.5" PointX="3.75" PointY="8.625" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Groups" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.StatusApplication" Width="1.5" PointX="3.75" PointY="19.25" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.75" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visitors" Width="1.5" PointX="3.75" PointY="15" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visits" Width="1.5" PointX="3" PointY="3.375" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.BlackList" Width="1.5" PointX="6" PointY="16" />
+      <Diagram DiagramId="89a419af1c034b56b6bba12b4e257406" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Applications" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Data_Authorization" Width="1.5" PointX="3" PointY="16.125" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Departament" Width="1.5" PointX="1.5" PointY="3.375" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Division" Width="1.5" PointX="1.5" PointY="0.75" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Employees" Width="1.5" PointX="3.75" PointY="1.5" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Groups" Width="1.5" PointX="3.75" PointY="20.875" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.StatusApplication" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.75" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visitors" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visits" Width="1.5" PointX="6" PointY="7" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.BlackList" Width="1.5" PointX="3" PointY="14" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Division" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Employees" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Groups" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_StatusApplication" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Visitors" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Data_Authorization_Visitors" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Employees_Departament" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Employees_Division" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Employees" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Groups" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_BlackList_Visitors" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Visitors" />
-        <AssociationConnector Association="ATaran_KII_DemExModel.Auth_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

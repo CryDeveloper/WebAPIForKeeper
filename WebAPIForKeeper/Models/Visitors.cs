@@ -18,8 +18,8 @@ namespace WebAPIForKeeper.Models
         public Visitors()
         {
             this.Applications = new HashSet<Applications>();
-            this.Visits = new HashSet<Visits>();
             this.Data_Authorization = new HashSet<Data_Authorization>();
+            this.Visits = new HashSet<Visits>();
         }
     
         public int ID_Visitor { get; set; }
@@ -34,10 +34,10 @@ namespace WebAPIForKeeper.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Applications> Applications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Data_Authorization> Data_Authorization { get; set; }
         public virtual BlackList BlackList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visits> Visits { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Data_Authorization> Data_Authorization { get; set; }
     }
 }
